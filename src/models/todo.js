@@ -1,3 +1,4 @@
+const { ObjectId } = require('bson');
 const connection = require('./connection');
 
 const TODO = 'todo';
@@ -15,7 +16,16 @@ const create = async (todo) => {
   return result;
 };
 
+const update = (todo) => {
+  const { id, task, status } = todo;
+  const db = await connection();
+  const result = await db.collection(TODO)
+    .updateOne({ _id: ObjectId(id) }, { $set: { task, status } });
+  return result;
+};
+
 module.exports = {
   getAll,
   create,
+  update,
 };
