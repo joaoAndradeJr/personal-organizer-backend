@@ -24,8 +24,15 @@ const update = (todo) => {
   return result;
 };
 
+const remove = async (id) => {
+  const db = connection();
+  const result = await db.collection(TODO).delete({ _id: ObjectId(id) });
+  return result;
+};
+
 module.exports = {
   getAll,
   create,
   update,
+  remove,
 };
