@@ -16,7 +16,7 @@ const create = async (todo) => {
   return result;
 };
 
-const update = (todo) => {
+const update = async (todo) => {
   const { id, task, status } = todo;
   const db = await connection();
   const result = await db.collection(TODO)
