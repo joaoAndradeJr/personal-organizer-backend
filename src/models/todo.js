@@ -25,8 +25,8 @@ const update = async (todo) => {
 };
 
 const remove = async (id) => {
-  const db = connection();
-  const result = await db.collection(TODO).delete({ _id: ObjectId(id) });
+  const db = await connection();
+  const result = await db.collection(TODO).deleteOne({ _id: ObjectId(id) });
   return result;
 };
 

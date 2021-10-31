@@ -11,7 +11,14 @@ const create = async (req, res) => {
   res.status(201).json(result);
 };
 
+const remove = async (req, res) => {
+  const { id } = req.params;
+  const result = await todoModel.remove(id);
+  res.status(200).json(result);
+};
+
 module.exports = {
   getAll,
   create,
+  remove,
 };

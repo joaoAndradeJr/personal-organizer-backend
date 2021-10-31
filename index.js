@@ -14,4 +14,6 @@ app.get('/', todoController.getAll);
 
 app.post('/', todoController.create);
 
+app.delete('/:id', todoController.remove);
+
 app.listen(PORT, () => console.log(`API listening on port ${PORT}`));
