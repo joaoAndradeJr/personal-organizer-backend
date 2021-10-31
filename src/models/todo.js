@@ -10,9 +10,9 @@ const getAll = async () => {
 };
 
 const create = async (todo) => {
-  const { task, status } = todo;
+  const { task } = todo;
   const db = await connection(); 
-  const result = await db.collection(TODO).insertOne({ task, status });
+  const result = await db.collection(TODO).insertOne({ task });
   return result;
 };
 

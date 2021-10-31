@@ -12,4 +12,6 @@ const todoController = require('./src/controllers/todo');
 
 app.get('/', todoController.getAll);
 
+app.post('/', todoController.create);
+
 app.listen(PORT, () => console.log(`API listening on port ${PORT}`));
