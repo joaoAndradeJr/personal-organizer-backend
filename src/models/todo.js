@@ -40,11 +40,18 @@ const create = async (todo) => {
 };
 
 const update = async (todo) => {
-  const { id, task, status } = todo;
-  const db = await connection();
-  const result = await db.collection(TODO)
-    .updateOne({ _id: ObjectId(id) }, { $set: { task, status } });
-  return result;
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const col = db.collection(TODO);
+    const result = await col.updateOne({ _id: ObjectId(id) }, { $set: todo });
+    return result;
+  } catch (err) {
+    console.error(err.stack);
+  }
+  finally {
+    client.close();
+  }
 };
 
 const remove = async (id) => {
