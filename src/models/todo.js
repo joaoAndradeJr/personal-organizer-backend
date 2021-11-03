@@ -1,22 +1,45 @@
-const { ObjectId } = require('bson');
-const connection = require('./connection');
+const { MongoClient, ObjectId } = require('mongodb');
+require('dotenv').config();
+
+const { DB_NAME, DB_URL } = process.env;
 
 const TODO = 'todo';
+const dbName = DB_NAME;
+const url = DB_URL;
+
+const client = new MongoClient(url);
 
 const getAll = async () => {
-  const db = await connection();
-  const todoArray = await db.collection(TODO).find().toArray();
-  return todoArray;
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const col = db.collection(TODO);
+    const result = await col.find().toArray();
+    return result;
+  } catch (err) {
+    console.error(err.stack);
+  }
+  finally {
+    client.close();
+  }
 };
 
 const create = async (todo) => {
-  const { task, status } = todo;
-  const db = await connection(); 
-  const result = await db.collection(TODO).insertOne({ task, status });
-  return result;
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const col = db.collection(TODO);
+    const result = await col.insertOne(todo);
+    return result;
+  } catch (err) {
+    console.error(err.stack);
+  }
+  finally {
+    client.close();
+  }
 };
 
-const update = (todo) => {
+const update = async (todo) => {
   const { id, task, status } = todo;
   const db = await connection();
   const result = await db.collection(TODO)
@@ -25,9 +48,18 @@ const update = (todo) => {
 };
 
 const remove = async (id) => {
-  const db = connection();
-  const result = await db.collection(TODO).delete({ _id: ObjectId(id) });
-  return result;
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const col = db.collection(TODO);
+    const result = await col.deleteOne({ _id: ObjectId(id) });
+    return result;
+  } catch (err) {
+    console.error(err.stack);
+  }
+  finally {
+    client.close();
+  }
 };
 
 module.exports = {
