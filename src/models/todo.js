@@ -9,6 +9,21 @@ const url = DB_URL;
 
 const client = new MongoClient(url);
 
+const getById = async (id) => {
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const col = db.collection(TODO);
+    const result = await col.findOne({ _id: ObjectId(id) });
+    return result;
+  } catch (err) {
+    console.error(err.stack);
+  }
+  finally {
+    client.close();
+  }
+};
+
 const getAll = async () => {
   try {
     await client.connect();
@@ -39,12 +54,19 @@ const create = async (todo) => {
   }
 };
 
-const update = async (todo) => {
-  const { id, task, status } = todo;
-  const db = await connection();
-  const result = await db.collection(TODO)
-    .updateOne({ _id: ObjectId(id) }, { $set: { task, status } });
-  return result;
+const update = async ({ id, task, status }) => {
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const col = db.collection(TODO);
+    const result = await col.updateOne({ _id: ObjectId(id) }, { $set: { task, status } });
+    return result;
+  } catch (err) {
+    console.error(err.stack);
+  }
+  finally {
+    client.close();
+  }
 };
 
 const remove = async (id) => {
@@ -63,6 +85,7 @@ const remove = async (id) => {
 };
 
 module.exports = {
+  getById,
   getAll,
   create,
   update,
