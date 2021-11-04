@@ -10,9 +10,13 @@ app.use(cors());
 
 const todoController = require('./src/controllers/todo');
 
+app.get('/:id', todoController.getById);
+
 app.get('/', todoController.getAll);
 
 app.post('/', todoController.create);
+
+app.put('/:id', todoController.update);
 
 app.delete('/:id', todoController.remove);
 

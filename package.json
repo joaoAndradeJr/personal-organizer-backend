@@ -6,6 +6,7 @@
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.yml",
     "start:dev": "pm2-runtime start --watch",
+    "debug": "nodemon index.js",
     "test": "jest --runInBand  --detectOpenHandles --forceExit"
   },
   "keywords": [],

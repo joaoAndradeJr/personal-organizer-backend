@@ -1,5 +1,11 @@
 const todoModel = require('../models/todo');
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const task = await todoModel.getById(id);
+  res.status(200).json(task);
+};
+
 const getAll = async (_req, res) => {
   const todo = await todoModel.getAll();
   res.status(200).json(todo);
@@ -25,6 +31,7 @@ const update = async (req, res) => {
 };
 
 module.exports = {
+  getById,
   getAll,
   create,
   remove,
