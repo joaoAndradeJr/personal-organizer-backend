@@ -19,8 +19,8 @@ Para fazer alterações no projeto crie uma nova branch com o comando `git check
 Há a opção de rodar o projeto usando o Nodemon para fazer isso pare a aplicação caso já a tenha iniciado e na pasta do projeto digite ``npm run debug``
 com esse comando você estará reiniciando a aplicação a cada salvamento, assim as alterações são imediatamente iniciadas.
 
-#### Deploy pronto
+#### Deploy da aplicação
 
 O deploy da aplicação já foi feito no endereço `https://personaltaskslist-bk.herokuapp.com/`
 
-Fique à vontade para usar o código como preferir!
+Fique à vontade para usar e alterar o projeto da maneira que preferir!
