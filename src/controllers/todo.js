@@ -27,7 +27,7 @@ const update = async (req, res) => {
   const { id } = req.params;
   const { task, status } = req.body;
   const result = await todoModel.update({ id, task, status });
-  res.status(209).json(result);
+  res.status(201).json(result);
 };
 
 module.exports = {
