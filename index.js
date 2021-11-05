@@ -10,6 +10,8 @@ app.use(cors());
 
 const todoController = require('./src/controllers/todo');
 
+app.get('/sort/:sortBy', todoController.sort);
+
 app.get('/:id', todoController.getById);
 
 app.get('/', todoController.getAll);

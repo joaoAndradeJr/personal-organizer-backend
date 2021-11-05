@@ -1,4 +1,5 @@
 const todoModel = require('../models/todo');
+const todoServices = require('../services/todo');
 
 const getById = async (req, res) => {
   const { id } = req.params;
@@ -30,10 +31,17 @@ const update = async (req, res) => {
   res.status(201).json(result);
 };
 
+const sort = async (req, res) => {
+  const { sortBy } = req.params;
+  const sortedTasks = await todoServices.sort(sortBy);
+  res.status(200).json(sortedTasks);
+};
+
 module.exports = {
   getById,
   getAll,
   create,
   remove,
   update,
+  sort,
 };
